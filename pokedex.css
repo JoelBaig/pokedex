@@ -1,0 +1,38 @@
+.pokedex {
+    background-color: lightcoral;
+    height: 200px;
+    width: 300px;
+    border-radius: 10px;
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.pokedex-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pokedex-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pokedex-img {
+    height: 156px;
+    width: 100%;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    background-image: url(img/pokeball.png);
+    background-position: 130px 40px;
+    background-size: 150px;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+.pokedex-img img {
+    height: 170px;
+}

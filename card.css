@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: lightblue;
+}
+
+h2 {
+    margin: 0;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    height: 60vh;
+    width: 500px;
+    border-radius: 10px;
+}
+
+.card-top {
+    background-color: lightcoral;
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.pkmn-img {
+    background-color: lightcoral;
+    display: flex;
+    justify-content: center;
+    height: 40%;
+    width: 100%;
+}
+
+.pkmn-img img {
+    height: 300px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.card-bottom {
+    background-color: white;
+    height: 15%;
+    width: 100%;
+    margin-top: -40px;
+    border-radius: 10px;
+}
+
+.info-top {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.info-bottom {
+    height: 20vh;
+    width: 100%;
+    margin-top: 50px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: white;
+}
+
+.info {
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+.type {
+    font-size: 20px;
+}
+
+.pd-left {
+    padding-left: 16px;
+}
+
+.pd-right {
+    padding-right: 16px;
+}
+
+.pd-top {
+    padding-top: 16px;
+}
+
+.pd-bottom {
+    padding-bottom: 16px;
+}
+
+.d-none {
+    display: none;
+}
