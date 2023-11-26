@@ -1,16 +1,14 @@
-body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: lightblue;
-}
-
-h2 {
-    margin: 0;
-}
-
 .content {
+    background-color: rgba(155 153 153 / 54%);
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .card {
@@ -21,6 +19,7 @@ h2 {
 
 .card-top {
     background-color: lightcoral;
+    color: white;
     height: 15%;
     width: 100%;
     display: flex;
@@ -44,7 +43,7 @@ h2 {
 }
 
 .card-bottom {
-    background-color: white;
+    background-color: black;
     height: 15%;
     width: 100%;
     margin-top: -40px;
@@ -54,6 +53,8 @@ h2 {
 .info-top {
     display: flex;
     justify-content: space-evenly;
+    background-color: black;
+    color: white;
 }
 
 .info-bottom {
@@ -62,7 +63,9 @@ h2 {
     margin-top: 50px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: white;
+    background-color: black;
+    color: white;
+    gap: 8px;
 }
 
 .info {
@@ -74,22 +77,15 @@ h2 {
     font-size: 20px;
 }
 
-.pd-left {
-    padding-left: 16px;
+.info-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
 }
 
-.pd-right {
-    padding-right: 16px;
-}
-
-.pd-top {
-    padding-top: 16px;
-}
-
-.pd-bottom {
-    padding-bottom: 16px;
-}
-
-.d-none {
-    display: none;
+.chart {
+    width: 350px;
+    height: 250px;
 }

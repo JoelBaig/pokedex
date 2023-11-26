@@ -7,17 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
 
+    <link rel="shortcut icon" href="img/pokeball.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="pokedex.css">
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="card.css">
     <script src="script.js"></script>
+    <script src="templates.js"></script>
+    <script src="colors.js"></script>
+    <script src="chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="loadPokemon()">
+<body onload="init()">
 
-    <div id="pokedex"></div>
+    <header>
+        <h1>Pokédex</h1><img src="img/pokeball-colored.png" alt="pokeball">
+    </header>
 
-    <div id="pkmnCard"></div>
+    <div class="input">
+        <input type="text" placeholder="search...">
+    </div>
+
+    <div id="pokedex" class="pokedex-content"></div>
+
+    <div id="pkmnCard" onclick="closeCard()"></div>
 
 </body>
 

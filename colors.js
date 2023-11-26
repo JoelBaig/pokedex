@@ -1,0 +1,20 @@
+let colors = {
+    fire: '#F08030',
+    grass: '#78C850',
+    electric: '#F8D030',
+    water: '#6890F0',
+    ground: '#E0C068',
+    rock: '#B9A038',
+    fairy: '#EFB7BC',
+    poison: '#A040A0',
+    bug: '#A8B81F',
+    dragon: '#7038F8',
+    psychic: '#F85888',
+    flying: '#A890F0',
+    fighting: '#C03127',
+    normal: '#A8A878',
+    ice: '#98D8D8',
+    ghost: '#705898',
+    dark: '#705848',
+    steel: '#B8B8D0'
+};

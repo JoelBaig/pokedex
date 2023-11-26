@@ -1,77 +1,80 @@
+let loadedPokemon = 0;
+let maxPokemon = 50;
+let allPkmn = [];
 let currentPokemon;
 
+function init() {
+    loadPokemon();
+    renderChart();
+}
+
 async function loadPokemon() {
-    let url = `https://pokeapi.co/api/v2/pokemon/charizard`;
-    let response = await fetch(url);
-    currentPokemon = await response.json(); //response wird hierdurch in ein json umgewandelt
-    renderPokemonCard();
-    generatePokedex();
-    console.log(currentPokemon);
+    for (let i = loadedPokemon + 1; i <= maxPokemon; i++) {
+        let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        let response = await fetch(url);
+        currentPokemon = await response.json();
+        allPkmn.push(currentPokemon);
+        renderPokedex(i, currentPokemon);
+        console.log(currentPokemon);
+    }
 }
 
-function generatePokedex() {
-    document.getElementById('pokedex').innerHTML += `
-        <div class="pokedex pd-left">
-            <div class="pokedex-top">
-                <div class="pd-top">
-                    <h2>${currentPokemon['name']}</h2>
-                </div>
-            </div>
+function renderPokedex(i) {
+    currentPokemon = allPkmn[i - 1];
+    let name = currentPokemon['name'];
+    let type = currentPokemon['types']['0']['type']['name'];
+    let imgSprite = currentPokemon['sprites']['front_default'];
 
-            <div class="pokedex-bottom">
-                <div class="pokedex-type">
-                    <div class="">${currentPokemon['types']['0']['type']['name']}</div>
-                    <div class="">${currentPokemon['types']['1']['type']['name']}</div>
-                </div>
-                <div class="pokedex-img"><img src="${currentPokemon['sprites']['front_default']}"></div>
-            </div>
-        </div>`;
+    document.getElementById('pokedex').innerHTML += pokedexTemplate(i, name, type, imgSprite);
+    setBgrColor(i);
 }
 
-function renderPokemonCard() {
-    let card = document.getElementById('pkmnCard');
-    card.innerHTML = pkmnCardTemplate();
+function setBgrColor(i) {
+    for (let j = 0; j < allPkmn.length; j++) {
+        let typeBgr = allPkmn[j]['types'][0]['type']['name'];
+        let bgrColor = colors[typeBgr];
+
+        document.getElementById(`pokedexCard${i}`).style.backgroundColor = bgrColor;
+    }
 }
 
-function pkmnCardTemplate() {
-    return `
-    <div class="content d-none">
-        <div class="card">
-            <div class="card-top">
-                <div>
-                    <div class="name pd-left"><h1>${currentPokemon['name']}</h1></div>
-                    <div class="type pd-left">${currentPokemon['types']['0']['type']['name']}</div>
-                    <div class="type pd-left">${currentPokemon['types']['1']['type']['name']}</div>
-                </div>
+function openCard(element) {
+    let index = element.getAttribute('data-index');
+    currentPokemon = allPkmn[index - 1];
+    let name = currentPokemon['name'];
+    let type = currentPokemon['types']['0']['type']['name'];
+    let img = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    let number = currentPokemon['id'];
 
-                <div>
-                    <div class="number pd-right"><h2>${currentPokemon['id']}</h2></div>
-                </div>
-            </div>
+    document.getElementById('pkmnCard').classList.remove('d-none');
+    document.getElementById('pkmnCard').innerHTML = pkmnCardTemplate(name, type, img, number);
+}
 
-            <div class="pkmn-img">
-                <img src="${currentPokemon['sprites']['other']['official-artwork']['front_default']}">
-            </div>
+function dontCloseCard(event) {
+    event.stopPropagation();
+}
 
-            <div class="card-bottom">
-                <div class="info-top">
-                    <div onclick="showInfo()" class="info">About</div>
-                    <div id="info2" onclick="showInfo()" class="info">Base Stats</div>
-                    <div id="info3" onclick="showInfo()" class="info">Evolution</div>
-                    <div id="info4" onclick="showInfo()" class="info">Moves</div>
-                </div>
-
-                <div id="info1" class="info-bottom d-none">
-                    <div>Ability: ${currentPokemon['abilities']['0']['ability']['name']}</div>
-                    <div>Height: ${currentPokemon['height']}"</div>
-                    <div>Weight: ${currentPokemon['weight']}kg</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    `;
+function closeCard() {
+    document.getElementById('pkmnCard').classList.add('d-none');
 }
 
 function showInfo() {
-    document.getElementById('info1').classList.remove('d-none');
+    let ability = currentPokemon['abilities']['0']['ability']['name'];
+    let height = currentPokemon['height'];
+    let weight = currentPokemon['weight'];
+
+    document.getElementById('infoBox').innerHTML = pkmnInfoTemplate(ability, height, weight);
 }
+
+function showStats() {
+    document.getElementById('infoBox').innerHTML = chartTemplate();
+    const chartData = getChartData();
+    renderChart(chartData);
+}
+
+function showMoves() {
+    document.getElementById('infoBox').classList.remove('d-none');
+    document.getElementById('infoBox').innerHTML = `
+    <div id="moves" class="info-bottom info-box class="d-none"">Moin</div>`;
+}
+

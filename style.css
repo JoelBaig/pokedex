@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: black;
+}
+
+header {
+    height: 100px;
+    width: 100%;
+    background-color: rgb(238, 58, 58);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+header img {
+    height: 100px;
+}
+
+h2 {
+    margin: 0;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.pd-left {
+    padding-left: 16px;
+}
+
+.pd-right {
+    padding-right: 16px;
+}
+
+.pd-top {
+    padding-top: 16px;
+}
+
+.pd-bottom {
+    padding-bottom: 16px;
+}
+
+.d-none {
+    display: none;
+}
+
+.chart {
+    height: 100px;
+    width: 100%;
+}
+
+.input {
+    display: flex;
+    justify-content: center;
+}
