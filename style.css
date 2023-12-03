@@ -52,7 +52,11 @@ h2 {
     width: 100%;
 }
 
-.input {
+.input-con {
     display: flex;
     justify-content: center;
+}
+
+.input {
+    border-radius: 10px;
 }
