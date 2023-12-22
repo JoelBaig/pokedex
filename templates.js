@@ -1,37 +1,42 @@
-function pokedexTemplate(i, name, type, imgSprite) {
+function pokedexTemplate(i, name, type, imgSprite, id, secondType) {
     return `
-<div onclick="openCard(${i})">
-    <div id="pokedexCard${i}" class="pokedex pd-left">
-        <div class="pokedex-top">
-            <div class="pd-top">
-                <h2>${firstLetterUppercase(name)}</h2>
-            </div>
-        </div>
+        <div onclick="openCard(${i})" data-index="${i}">
+            <div id="pokedexCard${i}" class="pokedex pd-left">
+                <div class="pokedex-top">
+                    <div class="pd-top name-con">
+                        <h2>${firstLetterUpperCase(name)}</h2>
+                        <div class="pd-right">${pkmnIdFormatter(id)}</div>
+                    </div>
+                </div>
 
-        <div class="pokedex-bottom">
-            <div class="pokedex-type">
-                <div class="">${firstLetterUppercase(type)}</div>
+                <div class="pokedex-bottom">
+                    <div class="pokedex-type">
+                        <div class="types">${firstLetterUpperCase(type)}</div>
+                        <div>${generateSecondTypeContainer(secondType)}</div>
+                    </div>
+                    <div class="pokedex-img">
+                        <img class="pokemon-sprite" src="${imgSprite}">
+                        <img class="bgr-pokeball" src="img/pokeball.png">
+                    </div>
+                </div>
             </div>
-            <div class="pokedex-img"><img src="${imgSprite}"></div>
-        </div>
-    </div>
-</div>`;
+        </div>`;
 }
 
-function pkmnCardTemplate(i, name, type, img, number, ability, weight, height) {
+function pkmnCardTemplate(i, name, type, img, id, ability, weight, height) {
     return `
     <div id="card" class="content d-none">
         <div id="cardContent" class="card" onclick="dontCloseCard(event)">
-            <div id="card-top" class="card-top">
+            <div id="card-top${i}" class="card-top">
                 <div>
-                    <div class="name pd-left"><h1>${firstLetterUppercase(name)}</h1></div>
-                    <div class="type pd-left">${firstLetterUppercase(type)}</div>
+                    <div class="name pd-left"><h1>${firstLetterUpperCase(name)}</h1></div>
+                    <div class="type pd-left">${firstLetterUpperCase(type)}</div>
                 </div>
                 <div>
-                    <div class="number pd-right"><h2>${number}</h2></div>
+                    <div class="number pd-right pd-top"><h2>${pkmnIdFormatter(id)}</h2></div>
                 </div>
             </div>
-            <div id="card-mid" class="pkmn-img">
+            <div id="card-mid${i}" class="pkmn-img">
                 <img src="${img}">
             </div>
             <div class="arrow-icons">
@@ -47,9 +52,9 @@ function pkmnCardTemplate(i, name, type, img, number, ability, weight, height) {
 
                 <div id="infoBox">
                     <div id="info" class="info-bottom info-box">
-                        <div>Ability: <b>${ability}</b></div>
-                        <div>Height: <b>${height}"</b></div>
-                        <div>Weight: <b>${weight}kg</b></div>
+                        <div class="about-con">Ability: <b>${firstLetterUpperCase(ability)}</b></div>
+                        <div class="about-con">Height: <b>${heightFormatter(height)}</b></div>
+                        <div class="about-con">Weight: <b>${weightFormatter(weight)}</b></div>
                     </div>
                 </div>
             </div>
@@ -60,26 +65,15 @@ function pkmnCardTemplate(i, name, type, img, number, ability, weight, height) {
 function pkmnAboutCard(ability, weight, height) {
     return `
     <div id="info" class="info-bottom info-box">
-        <div>Ability: <b>${ability}</b></div>
-        <div>Height: <b>${height}"</b></div>
-        <div>Weight: <b>${weight}kg</b></div>
+        <div class="about-con">Ability: <b>${firstLetterUpperCase(ability)}</b></div>
+        <div class="about-con">Height: <b>${heightFormatter(height)}</b></div>
+        <div class="about-con">Weight: <b>${weightFormatter(weight)}</b></div>
     </div>;`
 }
 
-function chartTemplate(pkmnStats) {
-    return `
-    <div class="info-bottom info-box">
-        <div>
-            <canvas id="myChart" class="chart">${pkmnStats}</canvas>
-        </div>
-    </div>`;
-}
-
-function movesTemplate(pokemonMove) {
+function movesTemplate(allMovesHTML) {
     return `
     <div id="moves" class="info-bottom info-box" style="overflow-y:scroll;">
-        <div class="moves">
-            ${pokemonMove['0']['move']['name']}
-        </div>
+        <div class="moves">${allMovesHTML}</div>
     </div>`;
 }

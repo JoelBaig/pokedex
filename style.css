@@ -1,13 +1,18 @@
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: black;
+    background-color: rgb(165, 165, 165);
+    object-fit: contain;
+    background-image: url(img/pokemonBGR.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 header {
     height: 100px;
     width: 100%;
-    background-color: rgb(238, 58, 58);
+    background-color: lightgray;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,4 +64,8 @@ h2 {
 
 .input {
     border-radius: 10px;
+}
+
+.overflow {
+    overflow: hidden;
 }
