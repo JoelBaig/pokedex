@@ -45,9 +45,9 @@ function pkmnCardTemplate(i, name, type, img, id, ability, weight, height) {
             </div>
             <div class="card-bottom">
                 <div class="info-top">
-                    <div onclick="showPkmnInfo()" class="info"><b>About</b></div>
+                    <div onclick="showPkmnInfo(${i})" class="info"><b>About</b></div>
                     <div onclick="showPkmnStats()" class="info"><b>Base Stats</b></div>
-                    <div onclick="showPkmnMoves()" class="info"><b>Moves</b></div>
+                    <div onclick="showPkmnMoves(${i})" class="info"><b>Moves</b></div>
                 </div>
 
                 <div id="infoBox">

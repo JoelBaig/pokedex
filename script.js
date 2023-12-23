@@ -15,6 +15,7 @@ async function loadPokemon() {
         let response = await fetch(url);
         currentPokemon = await response.json();
         allPkmn.push(currentPokemon);
+        allPkmnMoves.push(currentPokemon.moves);
 
         renderPokedex(i, currentPokemon);
         console.log(currentPokemon);
@@ -34,7 +35,7 @@ async function renderPokedex(i) {
     }
 
     document.getElementById('pokedex').innerHTML += pokedexTemplate(i, name, type, imgSprite, id, secondType);
-    setBgrColorPokedex(i);
+    generateBgrColorPokedex(i);
 }
 
 function generateSecondTypeContainer(secondType) {
@@ -45,27 +46,15 @@ function generateSecondTypeContainer(secondType) {
     }
 }
 
-function setBgrColorPokedex(index) {
-    for (let j = 0; j < allPkmn.length; j++) {
-        generateBgrColorPokedex(index, j);
-    }
-}
-
-function setBgrColorCard(index) {
-    for (let j = 0; j < allPkmn.length; j++) {
-        generateBgrColorCard(index, j);
-    }
-}
-
-function generateBgrColorPokedex(index, j) {
-    let typeBgrPokedex = allPkmn[j]['types'][0]['type']['name'];
+function generateBgrColorPokedex(index) {
+    let typeBgrPokedex = allPkmn[index - 1]['types'][0]['type']['name'];
     let bgrColor = colors[typeBgrPokedex];
 
     document.getElementById(`pokedexCard${index}`).style.backgroundColor = bgrColor;
 }
 
-function generateBgrColorCard(index, j) {
-    let typeBgrPokedex = allPkmn[j]['types'][0]['type']['name'];
+function generateBgrColorCard(index) {
+    let typeBgrPokedex = allPkmn[index - 1]['types'][0]['type']['name'];
     let bgrColor = colors[typeBgrPokedex];
 
     document.getElementById(`card-top${index}`).style.backgroundColor = bgrColor;
@@ -87,7 +76,8 @@ function openCard(i) {
 
     document.getElementById('body').classList.add('overflow');
     generateCard(i, name, type, img, id, ability, height, weight);
-    setBgrColorCard(i);
+    generateBgrColorCard(i);
+    showPkmnInfo(i);
 }
 
 function generateCard(i, name, type, img, id, ability, height, weight) {
@@ -104,27 +94,26 @@ function closeCard() {
     document.getElementById('body').classList.remove('overflow');
 }
 
-function showPkmnInfo() {
-    let ability = currentPokemon['abilities']['0']['ability']['name'];
-    let height = currentPokemon['height'];
-    let weight = currentPokemon['weight'];
+function showPkmnInfo(index) {
+    let ability = allPkmn[index - 1]['abilities']['0']['ability']['name'];
+    let height = allPkmn[index - 1]['height'];
+    let weight = allPkmn[index - 1]['weight'];
 
     document.getElementById('infoBox').innerHTML = pkmnAboutCard(ability, weight, height);
 }
 
-function showPkmnMoves() {
+function showPkmnMoves(index) {
     let container = document.getElementById('infoBox');
-    let allMovesHTML = '';
+    let movesHTML = '';
 
-    for (let j = 0; j < allPkmnMoves.length; j++) {
-        let moves = allPkmnMoves[j];
+    let moves = allPkmnMoves[index - 1];
 
-        for (let i = 0; i < moves.length; i++) {
-            let moveName = moves[i].move.name;
-            allMovesHTML += `${firstLetterUpperCase(moveName)}, `;
-        }
+    for (let i = 0; i < moves.length; i++) {
+        let moveName = moves[i].move.name;
+        movesHTML += `${firstLetterUpperCase(moveName)}, `;
     }
-    container.innerHTML = movesTemplate(allMovesHTML.slice(0, -2));
+
+    container.innerHTML = movesTemplate(movesHTML.slice(0, -2));
 }
 
 function pkmnIdFormatter(num) {
