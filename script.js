@@ -116,6 +116,24 @@ function showPkmnMoves(index) {
     container.innerHTML = movesTemplate(movesHTML.slice(0, -2));
 }
 
+function nextPkmn(index) {
+    if (index < allPkmn.length - 1) {
+        index++;
+    } else {
+        index = 1;
+    }
+    openCard(index);
+}
+
+function previousPkmn(index) {
+    if (index > 1) {
+        index--;
+    } else {
+        index = allPkmn.length;
+    }
+    openCard(index);
+}
+
 function pkmnIdFormatter(num) {
     if (num < 0) {
         return '#' + '-' + num.toString().padStart(3, '0');

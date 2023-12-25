@@ -40,8 +40,8 @@ function pkmnCardTemplate(i, name, type, img, id, ability, weight, height) {
                 <img src="${img}">
             </div>
             <div class="arrow-icons">
-                <button onclick="previousPkmn()"><img src="icons/arrow-left-solid.svg" alt=""></button>
-                <button onclick="nextPkmn()"><img src="icons/arrow-right-solid.svg" alt=""></button>
+                <button onclick="previousPkmn(${i})"><img src="icons/arrow-left-solid.svg" alt=""></button>
+                <button onclick="nextPkmn(${i})"><img src="icons/arrow-right-solid.svg" alt=""></button>
             </div>
             <div class="card-bottom">
                 <div class="info-top">
@@ -53,8 +53,8 @@ function pkmnCardTemplate(i, name, type, img, id, ability, weight, height) {
                 <div id="infoBox">
                     <div id="info" class="info-bottom info-box">
                         <div class="about-con">Ability: <b>${firstLetterUpperCase(ability)}</b></div>
-                        <div class="about-con">Height: <b>${heightFormatter(height)}</b></div>
-                        <div class="about-con">Weight: <b>${weightFormatter(weight)}</b></div>
+                        <div class="about-con">Height:  <b>${heightFormatter(height)}</b></div>
+                        <div class="about-con">Weight:  <b>${weightFormatter(weight)}</b></div>
                     </div>
                 </div>
             </div>
@@ -66,8 +66,8 @@ function pkmnAboutCard(ability, weight, height) {
     return `
     <div id="info" class="info-bottom info-box">
         <div class="about-con">Ability: <b>${firstLetterUpperCase(ability)}</b></div>
-        <div class="about-con">Height: <b>${heightFormatter(height)}</b></div>
-        <div class="about-con">Weight: <b>${weightFormatter(weight)}</b></div>
+        <div class="about-con">Height:  <b>${heightFormatter(height)}</b></div>
+        <div class="about-con">Weight:  <b>${weightFormatter(weight)}</b></div>
     </div>;`
 }
 
