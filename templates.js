@@ -1,14 +1,12 @@
 function pokedexTemplate(i, name, type, imgSprite, id, secondType) {
     return `
-        <div onclick="openCard(${i})" data-index="${i}">
-            <div id="pokedexCard${i}" class="pokedex pd-left">
+            <div onclick="openCard(${i})" data-index="${i}" id="pokedexCard${i}" class="pokedex pd-left">
                 <div class="pokedex-top">
                     <div class="pd-top name-con">
                         <h2>${firstLetterUpperCase(name)}</h2>
                         <div class="pd-right">${pkmnIdFormatter(id)}</div>
                     </div>
                 </div>
-
                 <div class="pokedex-bottom">
                     <div class="pokedex-type">
                         <div class="types">${firstLetterUpperCase(type)}</div>
@@ -19,8 +17,7 @@ function pokedexTemplate(i, name, type, imgSprite, id, secondType) {
                         <img class="bgr-pokeball" src="img/pokeball.png">
                     </div>
                 </div>
-            </div>
-        </div>`;
+            </div>`;
 }
 
 function pkmnCardTemplate(i, name, type, img, id, ability, weight, height) {

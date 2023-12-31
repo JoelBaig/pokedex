@@ -7,6 +7,9 @@ let currentPokemon;
 
 async function init() {
     await loadPokemon();
+
+    const input = document.getElementById('myInput');
+    input.addEventListener('input', searchPokemon);
 }
 
 async function loadPokemon() {
@@ -152,4 +155,20 @@ function heightFormatter(num) {
 
 function weightFormatter(num) {
     return Math.abs(num) < 2000 ? Math.sign(num) * ((Math.abs(num) / 10).toFixed(2)) + ' kg' : Math.sign(num) * Math.abs(num);
+}
+
+function searchPokemon() {
+    const input = document.getElementById('myInput');
+    const filter = input.value.toLowerCase();
+    const pokedex = document.getElementById('pokedex');
+    const cards = pokedex.getElementsByClassName('pokedex');
+
+    for (let i = 0; i < cards.length; i++) {
+        const name = cards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
+        if (name.startsWith(filter)) {
+            cards[i].style.display = '';
+        } else {
+            cards[i].style.display = 'none';
+        }
+    }
 }

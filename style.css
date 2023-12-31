@@ -12,7 +12,7 @@ body {
 header {
     height: 100px;
     width: 100%;
-    background-color: lightgray;
+    background-color: rgb(237,113,97);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,4 +68,24 @@ h2 {
 
 .overflow {
     overflow: hidden;
+}
+
+.arrow-up-con {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.arrow-up {
+    width: 70px;
+    height: 80px;
+    cursor: pointer;
+    transition: transform .1s;
+}
+
+.arrow-up:hover {
+    transform: scale(1.2);
 }

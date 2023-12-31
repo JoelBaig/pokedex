@@ -25,13 +25,16 @@
     </header>
 
     <div class="input-con">
-        <input id="input" class="input" type="text" placeholder="search...">
+        <input id="myInput" class="input" oninput="searchPokemon()" type="text" placeholder="search Pokémon...">
     </div>
 
     <div id="pokedex" class="pokedex-content"></div>
 
     <div id="pkmnCard" onclick="closeCard()"></div>
 
+    <div class="arrow-up-con">
+        <img class="arrow-up pd-right pd-bottom" src="icons/arrow-up.png" alt="arrow-up">
+    </div>
 </body>
 
 </html>
