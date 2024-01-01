@@ -42,9 +42,9 @@ function pkmnCardTemplate(i, name, type, img, id, ability, weight, height) {
             </div>
             <div class="card-bottom">
                 <div class="info-top">
-                    <div onclick="showPkmnInfo(${i})" class="info"><b>About</b></div>
-                    <div onclick="showPkmnStats()" class="info"><b>Base Stats</b></div>
-                    <div onclick="showPkmnMoves(${i})" class="info"><b>Moves</b></div>
+                    <div onclick="showPkmnInfo(${i})" class="info about-underline" id="about" tabindex="0"><b>About</b></div>
+                    <div onclick="showPkmnStats(${i})" class="info" tabindex="0"><b>Base Stats</b></div>
+                    <div onclick="showPkmnMoves(${i})" class="info" tabindex="0"><b>Moves</b></div>
                 </div>
 
                 <div id="infoBox">
@@ -65,12 +65,19 @@ function pkmnAboutCard(ability, weight, height) {
         <div class="about-con">Ability: <b>${firstLetterUpperCase(ability)}</b></div>
         <div class="about-con">Height:  <b>${heightFormatter(height)}</b></div>
         <div class="about-con">Weight:  <b>${weightFormatter(weight)}</b></div>
-    </div>;`
+    </div>`
 }
 
-function movesTemplate(allMovesHTML) {
+function statsTemplate(i) {
+    return `
+    <div id="stats" class="info-bottom info-box" style="overflow-y:scroll;">
+        <canvas id="myChart${i}"></canvas>
+    </div>`;
+}
+
+function movesTemplate(movesHTML) {
     return `
     <div id="moves" class="info-bottom info-box" style="overflow-y:scroll;">
-        <div class="moves">${allMovesHTML}</div>
+        <div class="moves">${movesHTML}</div>
     </div>`;
 }

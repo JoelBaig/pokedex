@@ -33,7 +33,12 @@
     <div id="pkmnCard" onclick="closeCard()"></div>
 
     <div class="arrow-up-con">
-        <img class="arrow-up pd-right pd-bottom" src="icons/arrow-up.png" alt="arrow-up">
+        <img id="arrowUp" class="arrow-up pd-right pd-bottom d-none" onclick="scrollToTop();" src="icons/arrow-up.png"
+            alt="arrow-up">
+    </div>
+
+    <div class="load-btn-con">
+        <button id="loadMorePkmn" onclick="loadMorePkmn()" class="load-btn">load more Pokémon</button>
     </div>
 </body>
 

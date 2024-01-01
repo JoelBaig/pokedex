@@ -1,5 +1,5 @@
 let minPokemon = 1;
-let maxPokemon = 20;
+let maxPokemon = 50;
 let allPkmn = [];
 let allPkmnMoves = [];
 let allPkmnStats = [];
@@ -10,6 +10,8 @@ async function init() {
 
     const input = document.getElementById('myInput');
     input.addEventListener('input', searchPokemon);
+
+    window.addEventListener('scroll', handleScroll);
 }
 
 async function loadPokemon() {
@@ -19,6 +21,7 @@ async function loadPokemon() {
         currentPokemon = await response.json();
         allPkmn.push(currentPokemon);
         allPkmnMoves.push(currentPokemon.moves);
+        allPkmnStats.push(currentPokemon.stats.base_stats);
 
         renderPokedex(i, currentPokemon);
         console.log(currentPokemon);
@@ -81,6 +84,7 @@ function openCard(i) {
     generateCard(i, name, type, img, id, ability, height, weight);
     generateBgrColorCard(i);
     showPkmnInfo(i);
+    renderChart(i);
 }
 
 function generateCard(i, name, type, img, id, ability, height, weight) {
@@ -105,18 +109,26 @@ function showPkmnInfo(index) {
     document.getElementById('infoBox').innerHTML = pkmnAboutCard(ability, weight, height);
 }
 
+function showPkmnStats(index) {
+    document.getElementById('about').classList.remove('about-underline');
+    let content = document.getElementById('infoBox');
+    content.innerHTML = '';
+    content.innerHTML += statsTemplate(index);
+    renderChart(index);
+}
+
 function showPkmnMoves(index) {
-    let container = document.getElementById('infoBox');
+    document.getElementById('about').classList.remove('about-underline');
+    let content = document.getElementById('infoBox');
     let movesHTML = '';
+    let pkmnMoves = allPkmnMoves[index - 1];
 
-    let moves = allPkmnMoves[index - 1];
-
-    for (let i = 0; i < moves.length; i++) {
-        let moveName = moves[i].move.name;
+    for (let i = 0; i < pkmnMoves.length; i++) {
+        let moveName = pkmnMoves[i].move.name;
         movesHTML += `${firstLetterUpperCase(moveName)}, `;
     }
 
-    container.innerHTML = movesTemplate(movesHTML.slice(0, -2));
+    content.innerHTML = movesTemplate(movesHTML.slice(0, -2));
 }
 
 function nextPkmn(index) {
@@ -137,6 +149,37 @@ function previousPkmn(index) {
     openCard(index);
 }
 
+function searchPokemon() {
+    const input = document.getElementById('myInput');
+    const filter = input.value.toLowerCase();
+    const pokedex = document.getElementById('pokedex');
+    const cards = pokedex.getElementsByClassName('pokedex');
+
+    for (let i = 0; i < cards.length; i++) {
+        const name = cards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
+        if (name.startsWith(filter)) {
+            cards[i].style.display = '';
+        } else {
+            cards[i].style.display = 'none';
+        }
+    }
+}
+
+function handleScroll() {
+    let arrow = document.getElementById('arrowUp');
+    let scroll = window.scrollY;
+
+    if (scroll >= 100) {
+        arrow.classList.remove('d-none');
+    } else {
+        arrow.classList.add('d-none');
+    }
+}
+
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+
 function pkmnIdFormatter(num) {
     if (num < 0) {
         return '#' + '-' + num.toString().padStart(3, '0');
@@ -155,20 +198,4 @@ function heightFormatter(num) {
 
 function weightFormatter(num) {
     return Math.abs(num) < 2000 ? Math.sign(num) * ((Math.abs(num) / 10).toFixed(2)) + ' kg' : Math.sign(num) * Math.abs(num);
-}
-
-function searchPokemon() {
-    const input = document.getElementById('myInput');
-    const filter = input.value.toLowerCase();
-    const pokedex = document.getElementById('pokedex');
-    const cards = pokedex.getElementsByClassName('pokedex');
-
-    for (let i = 0; i < cards.length; i++) {
-        const name = cards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
-        if (name.startsWith(filter)) {
-            cards[i].style.display = '';
-        } else {
-            cards[i].style.display = 'none';
-        }
-    }
 }
