@@ -20,6 +20,11 @@
 </head>
 
 <body id="body" onload="init()">
+
+    <div id="loadingBallCon" class="loading-ball-con">
+        <img id="loadingBall" class="loading-ball d-none rotate" src="img/pokeball.png" alt="pokeball">
+        <span class="d-none" id="loadingTxt">loading...</span>
+    </div>
     <header>
         <h1>Pokédex</h1><img src="img/pokeball-colored.png" alt="pokeball">
     </header>
@@ -37,12 +42,13 @@
             alt="arrow-up">
     </div>
 
-    <div class="load-btn-con">
-        <button id="loadMorePkmn" onclick="loadMorePkmn()" class="load-btn">load more Pokémon</button>
+    <div class="arrow-down-con">
+        <img id="arrowDown" class="arrow-down pd-right pd-top d-none" onclick="scrollToBottom();"
+            src="icons/arrow-down.png" alt="arrow-up">
     </div>
 
-    <div class="loading-ball-con">
-        <img id="loadingBall" class="rotate loading-ball d-none" src="img/pkmn.png" alt="pokeball">
+    <div class="load-btn-con">
+        <button id="loadMorePkmn" class="load-btn">load more</button>
     </div>
 </body>
 

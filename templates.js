@@ -54,6 +54,9 @@ function pkmnCardTemplate(i, name, type, img, id, ability, weight, height) {
                         <div class="about-con">Weight:  <b>${weightFormatter(weight)}</b></div>
                     </div>
                 </div>
+                <div class="close-icon-con d-none">
+                    <img onclick="closeCard()" id="closeIcon" class="close-icon" src="icons/x-mark.png" alt="X">
+                </div>
             </div>
         </div>
     </div>`;

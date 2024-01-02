@@ -11,7 +11,8 @@ async function init() {
     const input = document.getElementById('myInput');
     input.addEventListener('input', searchPokemon);
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScrollTop);
+    window.addEventListener('scroll', handleScrollBottom);
 
     document.getElementById('loadMorePkmn').addEventListener('click', loadMorePokemon);
 }
@@ -29,15 +30,6 @@ async function loadPokemon() {
         console.log(currentPokemon);
     }
     currentPokemonIndex += maxPokemon;
-}
-
-async function loadMorePokemon() {
-    document.getElementById('loadingBall').classList.remove('d-none');
-    await loadPokemon();
-}
-
-function loadingScreen() {
-    document.getElementById('')
 }
 
 async function renderPokedex(i) {
@@ -92,11 +84,25 @@ function openCard(i) {
     allPkmnMoves.push(moves);
     allPkmnStats.push(stats);
 
-    document.getElementById('body').classList.add('overflow');
+    displayPokemonCard(name, type, img, id, ability, height, weight, i);
+}
+
+function displayPokemonCard(name, type, img, id, ability, height, weight, i) {
+    hideArrows();
     generateCard(i, name, type, img, id, ability, height, weight);
     generateBgrColorCard(i);
     showPkmnInfo(i);
     renderChart(i);
+}
+
+function closeCard() {
+    document.getElementById('pkmnCard').classList.add('d-none');
+}
+
+function hideArrows() {
+    document.getElementById('body').classList.add('overflow');
+    document.getElementById('arrowUp').classList.add('d-none');
+    document.getElementById('arrowDown').classList.add('d-none');
 }
 
 function generateCard(i, name, type, img, id, ability, height, weight) {
@@ -104,10 +110,12 @@ function generateCard(i, name, type, img, id, ability, height, weight) {
     document.getElementById('pkmnCard').innerHTML = pkmnCardTemplate(i, name, type, img, id, ability, weight, height);
 }
 
+// dont closes the card if clicking on it
 function dontCloseCard(event) {
     event.stopPropagation();
 }
 
+// closes card when clicking on body
 function closeCard() {
     document.getElementById('pkmnCard').classList.add('d-none');
     document.getElementById('body').classList.remove('overflow');
@@ -121,11 +129,12 @@ function showPkmnInfo(index) {
     document.getElementById('infoBox').innerHTML = pkmnAboutCard(ability, weight, height);
 }
 
+// shows pokemon stats in chart
 function showPkmnStats(index) {
     document.getElementById('about').classList.remove('about-underline');
     let content = document.getElementById('infoBox');
     content.innerHTML = '';
-    content.innerHTML += statsTemplate(index);
+    content.innerHTML = statsTemplate(index);
     renderChart(index);
 }
 
@@ -162,13 +171,13 @@ function previousPkmn(index) {
 }
 
 function searchPokemon() {
-    const input = document.getElementById('myInput');
-    const filter = input.value.toLowerCase();
-    const pokedex = document.getElementById('pokedex');
-    const cards = pokedex.getElementsByClassName('pokedex');
+    let input = document.getElementById('myInput');
+    let filter = input.value.toLowerCase();
+    let pokedex = document.getElementById('pokedex');
+    let cards = pokedex.getElementsByClassName('pokedex');
 
     for (let i = 0; i < cards.length; i++) {
-        const name = cards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
+        let name = cards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
         if (name.startsWith(filter)) {
             cards[i].style.display = '';
         } else {
@@ -177,7 +186,7 @@ function searchPokemon() {
     }
 }
 
-function handleScroll() {
+function handleScrollTop() {
     let arrow = document.getElementById('arrowUp');
     let scroll = window.scrollY;
 
@@ -188,8 +197,23 @@ function handleScroll() {
     }
 }
 
+function handleScrollBottom() {
+    let arrow = document.getElementById('arrowDown');
+    let scroll = window.scrollY;
+
+    if (scroll > 120) {
+        arrow.classList.remove('d-none');
+    } else {
+        arrow.classList.add('d-none');
+    }
+}
+
 function scrollToTop() {
     window.scrollTo(0, 0);
+}
+
+function scrollToBottom() {
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 function pkmnIdFormatter(num) {
@@ -211,3 +235,30 @@ function heightFormatter(num) {
 function weightFormatter(num) {
     return Math.abs(num) < 2000 ? Math.sign(num) * ((Math.abs(num) / 10).toFixed(2)) + ' kg' : Math.sign(num) * Math.abs(num);
 }
+
+//loads more pokemon
+async function loadMorePokemon() {
+    showLoadingScreen();
+    await loadPokemon();
+    hideLoadingScreen();
+}
+
+//shows loading screen
+function showLoadingScreen() {
+    hideArrows();
+    document.getElementById('loadingBall').classList.remove('d-none');
+    document.getElementById('loadingBallCon').classList.remove('d-none');
+    document.getElementById('loadingTxt').classList.remove('d-none');
+    document.getElementById('loadingBallCon').classList.add('blur');
+    document.getElementById('body').classList.add('overflow');
+}
+
+//hides loading screen
+function hideLoadingScreen() {
+    document.getElementById('loadingBall').classList.add('d-none');
+    document.getElementById('loadingBallCon').classList.add('d-none');
+    document.getElementById('loadingTxt').classList.add('d-none');
+    document.getElementById('loadingBallCon').classList.remove('blur');
+    document.getElementById('body').classList.remove('overflow');
+}
+
