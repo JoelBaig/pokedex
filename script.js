@@ -3,7 +3,7 @@ let maxPokemon = 50;
 let allPkmn = [];
 let allPkmnMoves = [];
 let allPkmnStats = [];
-let currentPokemon;
+let currentPokemonIndex = 1;
 
 async function init() {
     await loadPokemon();
@@ -12,24 +12,36 @@ async function init() {
     input.addEventListener('input', searchPokemon);
 
     window.addEventListener('scroll', handleScroll);
+
+    document.getElementById('loadMorePkmn').addEventListener('click', loadMorePokemon);
 }
 
 async function loadPokemon() {
-    for (let i = minPokemon; i <= maxPokemon; i++) {
+    for (let i = currentPokemonIndex; i <= currentPokemonIndex + maxPokemon - 1; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
-        currentPokemon = await response.json();
+        let currentPokemon = await response.json();
         allPkmn.push(currentPokemon);
         allPkmnMoves.push(currentPokemon.moves);
-        allPkmnStats.push(currentPokemon.stats.base_stats);
+        allPkmnStats.push(currentPokemon.stats.base_stat);
 
         renderPokedex(i, currentPokemon);
         console.log(currentPokemon);
     }
+    currentPokemonIndex += maxPokemon;
+}
+
+async function loadMorePokemon() {
+    document.getElementById('loadingBall').classList.remove('d-none');
+    await loadPokemon();
+}
+
+function loadingScreen() {
+    document.getElementById('')
 }
 
 async function renderPokedex(i) {
-    currentPokemon = allPkmn[i - 1];
+    let currentPokemon = allPkmn[i - 1];
     let name = currentPokemon['name'];
     let type = currentPokemon['types'][0]['type']['name'];
     let imgSprite = currentPokemon['sprites']['front_default'];

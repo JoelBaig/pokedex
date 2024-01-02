@@ -3,9 +3,10 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: rgb(165, 165, 165);
     object-fit: contain;
-    background-image: url(img/pokemonBGR.jpg);
+    background-position: center;
+    background-image: url(img/pkmn.png);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 600px;
     background-attachment: fixed;
     scroll-behavior: smooth;
 }
@@ -108,4 +109,22 @@ h2 {
     color: white;
     padding: 16px;
     font-size: 18px;
+}
+
+.loading-ball-con {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.loading-ball {
+    width: 300px;
+    height: 300px;
 }
